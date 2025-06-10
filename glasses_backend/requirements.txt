@@ -1,0 +1,15 @@
+deepface
+numpy
+retina-face
+opencv-python
+google-generativeai
+python-dotenv
+google-cloud-vision
+fastapi[standard]
+python-multipart
+uvicorn
+pillow
+flask
+google-genai
+tensorflow
+keras

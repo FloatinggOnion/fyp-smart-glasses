@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+deepface = "*"
+numpy = "*"
+retina-face = "*"
+opencv-python = "*"
+google-generativeai = "*"
+python-dotenv = "*"
+google-cloud-vision = "*"
+fastapi = {extras = ["standard"], version = "*"}
+python-multipart = "*"
+uvicorn = "*"
+pillow = "*"
+flask = "*"
+google-genai = "*"
+tensorflow = "*"
+keras = "*"
+tf-keras = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
