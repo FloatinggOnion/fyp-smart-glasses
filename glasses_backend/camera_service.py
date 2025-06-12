@@ -6,7 +6,7 @@ import datetime
 from typing import Optional
 
 # CAPTURE_URL = "http://10.42.0.114/capture" # Use the capture endpoint
-CAPTURE_URL = "http://192.168.66.9/capture"
+CAPTURE_URL = "http://192.168.137.58/capture"
 _last_frame: Optional[Image.Image] = None
 _last_frame_time: float = 0
 
