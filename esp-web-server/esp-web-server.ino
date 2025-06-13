@@ -22,8 +22,8 @@
 #include "esp_http_server.h"
 
 // Replace with your network credentials
-const char* ssid = "SAMMYOJO 4544";
-const char* password = "96P16w}7";
+const char* ssid = "DESKTOP-KR8GHLKWN";
+const char* password = "4EDBE0AH";
 
 #define PART_BOUNDARY "123456789000000000000987654321"
 
@@ -211,12 +211,16 @@ void setup() {
     return;
   }
 
+  WiFi.mode(WIFI_STA);
+
   // connect Wi-Fi
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED){
+  while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    Serial.printf(" Status: %d\n", WiFi.status());
   }
+
   Serial.println("\nWiFi connected");
   Serial.printf("Camera Stream Ready! Go to: http://%s/\n", WiFi.localIP().toString().c_str());
   Serial.printf("Single Capture:        http://%s/capture\n", WiFi.localIP().toString().c_str());

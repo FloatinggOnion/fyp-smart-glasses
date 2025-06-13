@@ -13,3 +13,4 @@ flask
 google-genai
 tensorflow
 keras
+python-dateutil
