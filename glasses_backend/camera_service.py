@@ -29,9 +29,6 @@ def get_latest_frame() -> Optional[Image.Image]:
             img.verify()
             img = Image.open(io.BytesIO(response.content))
 
-            # Rotate 90 degrees clockwise
-            img = img.rotate(90, expand=True)
-
             # Enhance sharpness
             img = ImageEnhance.Sharpness(img).enhance(2.0)
 
