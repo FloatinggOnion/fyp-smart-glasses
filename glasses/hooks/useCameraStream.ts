@@ -105,7 +105,7 @@ export function useCameraStream() {
         if (response.ok) {
           const blob = await response.blob();
           const { base64, dataUrl } = await blobToBase64(blob);
-          console.log('Frame captured successfully, size:', blob.size, 'bytes');
+          // console.log('Frame captured successfully, size:', blob.size, 'bytes');
           retryCountRef.current = 0; // Reset retry count on success
           setState(prev => ({ 
             ...prev, 
@@ -169,10 +169,10 @@ export function useCameraStream() {
         const base64String = result.includes(',') ? result.split(',')[1] : result;
         
         // Debug logging
-        console.log('Blob type:', blob.type);
-        console.log('Original result length:', result.length);
-        console.log('Base64 string length:', base64String.length);
-        console.log('Base64 string starts with:', base64String.substring(0, 20));
+        // console.log('Blob type:', blob.type);
+        // console.log('Original result length:', result.length);
+        // console.log('Base64 string length:', base64String.length);
+        // console.log('Base64 string starts with:', base64String.substring(0, 20));
         
         resolve({
           base64: base64String,

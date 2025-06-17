@@ -13,6 +13,10 @@ export function CameraPreview({ currentFrame, currentFrameDataUrl, isStreaming, 
   const previewWidth = width * 0.8;
   const previewHeight = (previewWidth * 3) / 4; // 4:3 aspect ratio
 
+  // For rotated image, swap dimensions to maintain aspect ratio
+  const rotatedWidth = previewHeight; // Use height as width
+  const rotatedHeight = previewWidth; // Use width as height
+
   if (error) {
     return (
       <View style={[styles.container, { width: previewWidth, height: previewHeight }]}>
@@ -47,11 +51,20 @@ export function CameraPreview({ currentFrame, currentFrameDataUrl, isStreaming, 
 
   return (
     <View style={[styles.container, { width: previewWidth, height: previewHeight }]}>
-      <Image
-        source={{ uri: currentFrameDataUrl }}
-        style={[styles.image, { width: previewWidth, height: previewHeight }]}
-        resizeMode="cover"
-      />
+      <View style={styles.imageWrapper}>
+        <Image
+          source={{ uri: currentFrameDataUrl || '' }}
+          style={[
+            styles.image, 
+            { 
+              width: previewHeight, // Use container height as image width
+              height: previewWidth, // Use container width as image height
+              transform: [{ rotate: '90deg' }] // Rotate 90 degrees clockwise
+            }
+          ]}
+          resizeMode="cover"
+        />
+      </View>
       <View style={styles.overlay}>
         <Text style={styles.statusText}>Live Camera Feed</Text>
       </View>
@@ -129,5 +142,13 @@ const styles = StyleSheet.create({
     color: '#FF8A65',
     fontSize: 12,
     textAlign: 'center',
+  },
+  imageWrapper: {
+    overflow: 'hidden',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
 }); 
