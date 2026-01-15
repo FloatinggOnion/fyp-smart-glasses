@@ -7,6 +7,7 @@ import { useAction } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { useGlassesAPI } from './useGlassesAPI';
 import { useCameraStream } from './useCameraStream';
+import { useTTS } from '../utils/tts';
 
 export function useAudioRecorder() {
   const [recording, setRecording] = useState<Audio.Recording | null>(null);
@@ -19,7 +20,7 @@ export function useAudioRecorder() {
   // Get the Convex functions
   const transcribeAudio = useAction(api.audio.transcribeAudio);
   const useGemini = useAction(api.gemini.geminiReply);
-  const textToSpeech = useAction(api.tts.textToSpeech);
+  const { speak } = useTTS();
   const { processQuery } = useGlassesAPI();
   
   // Get camera stream functionality
@@ -81,10 +82,8 @@ export function useAudioRecorder() {
   const playAudioResponse = async (audioUri: string) => {
     try {
       const { sound } = await Audio.Sound.createAsync({ uri: audioUri });
-      
       await sound.playAsync();
       
-      // Handle playback completion
       sound.setOnPlaybackStatusUpdate((status) => {
         if (status.isLoaded && status.didJustFinish) {
           sound.unloadAsync();
@@ -122,8 +121,10 @@ export function useAudioRecorder() {
           const reply = await useGemini({ prompt: transcriptionText });
           console.log('AI Reply:', reply);
           if (reply) {
-            const ttsDataUri = await textToSpeech({ text: reply });
-            await playAudioResponse(ttsDataUri);
+            const ttsDataUri = await speak(reply);
+            if (ttsDataUri) {
+              await playAudioResponse(ttsDataUri);
+            }
           }
         } catch (geminiError) {
           console.error('Gemini error details:', geminiError);
@@ -162,8 +163,10 @@ export function useAudioRecorder() {
       // Convert response to speech if we have a reply from backend
       if (replyText) {
         console.log('Using backend response for TTS:', replyText);
-        const ttsDataUri = await textToSpeech({ text: replyText });
-        await playAudioResponse(ttsDataUri);
+        const ttsDataUri = await speak(replyText);
+        if (ttsDataUri) {
+          await playAudioResponse(ttsDataUri);
+        }
       } else {
         console.log('No response from backend, no fallback to Convex');
       }

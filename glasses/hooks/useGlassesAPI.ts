@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 // Use localhost for web, your machine's IP for mobile devices
 // const API_URL = process.env.EXPO_PUBLIC_API_URL || 
   // (Platform.OS === 'web' ? 'http://localhost:8000' : 'http://192.168.168.78:8000'); // Replace with your machine's IP
-const API_URL = "https://petite-rooms-battle.loca.lt";
+const API_URL = "https://silly-windows-itch.loca.lt";
 
 export function useGlassesAPI() {
   const [isLoading, setIsLoading] = useState(false);
